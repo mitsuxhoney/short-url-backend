@@ -27,7 +27,7 @@ const handleLogin = async(req, res) => {
         }, secret);
 
         res.cookie("jwt_token", token, {
-            expires: new Date(Date.now() + 60000),
+            expires: new Date(Date.now() + 180000),
             httpOnly: true
         });
 
@@ -69,4 +69,10 @@ const handleSignup = async(req, res) => {
 };
 
 
-module.exports = {handleLogin, handleSignup};
+const handleLogout = (req, res) => {
+    res.clearCookie("jwt_token");
+    res.redirect('/');
+};
+
+
+module.exports = {handleLogin, handleSignup, handleLogout};

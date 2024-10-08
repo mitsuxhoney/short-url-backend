@@ -2,13 +2,14 @@ const express = require('express');
 
 const urlRouter = express.Router();
 
-const { handleGenerateUrl, handleShowAllUrls, handleShowUrlById } = require('../controllers/urlController');
+const { handleGenerateUrl, handleRedirectToUrlById, handleDeleteUrlById } = require('../controllers/urlController');
+const auth = require('../middlewares/auth');
 
-urlRouter.post('/', handleGenerateUrl);
+urlRouter.post('/', auth, handleGenerateUrl);
 
-urlRouter.get('/', handleShowAllUrls);
-
-urlRouter.get('/:id', handleShowUrlById);
+urlRouter.route('/:id')
+.get(auth, handleRedirectToUrlById)
+.post(auth, handleDeleteUrlById)
 
 
 module.exports = urlRouter;

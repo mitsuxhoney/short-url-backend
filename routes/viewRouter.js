@@ -1,12 +1,15 @@
 const express = require('express');
 const viewRouter = express.Router();
-const userAuth = require('../middlewares/userAuth');
+const userAuth = require('../middlewares/auth');
 const Url = require('../models/url');
 
-viewRouter.get('/', userAuth, (req, res) => {
+viewRouter.get('/', userAuth, async(req, res) => {
     if(req?.user) {
- 
-        res.render('dashboard');
+        const urls = await Url.find({createdBy: req.user._doc._id});
+        res.render('dashboard', {
+            urls: urls,
+            username: req.user._doc.username
+        });
         return;
     }
     res.render('home');

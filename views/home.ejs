@@ -14,19 +14,31 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
+        body{
+            overflow-x: hidden;
+        }
         header{
             display: flex;
             justify-content: space-between;
             margin: 10px 20px;
         }
         button{
-            background-color: #ffffff;
+            padding: 2px 10px;
+            cursor: pointer;
+            font-size: 15px;
             border: none;
+            border-radius: 15px;
+            background-color: #681368;
+            color: white;
+            transition: all;
+            transition-duration: 500ms;
+        }
+        button:hover{
+            background-color: #9b1c9b;
         }
         a{
             text-decoration: none;
-            color: #0f010f;
-            font-size: 15px;
+            color: white;
         }
     </style>
 </head>

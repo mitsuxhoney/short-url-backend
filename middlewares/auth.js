@@ -3,9 +3,10 @@ require('dotenv').config();
 
 const SECRET = process.env.SECRET;
 
-const userAuth = async(req, res, next) => {
+const auth = async(req, res, next) => {
 
     try {
+
         const token = req.cookies?.jwt_token;
 
         const user = await jwt.verify(token, SECRET);
@@ -23,4 +24,4 @@ const userAuth = async(req, res, next) => {
     
 }
 
-module.exports = userAuth;
+module.exports = auth;

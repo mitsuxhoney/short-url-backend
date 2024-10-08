@@ -10,17 +10,16 @@ const urlSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    analytics: {
+    analytics: [{
         timestamp: {
             type: Date,
             default: Date.now  
         }
-       
-    },
-    createdBy: [{
+    }],
+    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
-    }]
+        ref: 'User'
+    }
 }, {
     timestamps: true
 });
