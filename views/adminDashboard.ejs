@@ -75,14 +75,6 @@
         </div>
     </header>
 
-    <div style="margin: 10px 20px;">
-        <form action="/api/v1/urls/" method="POST">
-            <label for="url">Enter your original URL: </label>
-            <input type="text" name="url" id="url" required />
-            <button type="submit" >Generate</button>
-        </form>
-    </div>
-
     <% if (locals.urls) { %>
         <div style="margin-top: 50px;">
             <table>
