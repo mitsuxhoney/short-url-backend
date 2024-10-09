@@ -24,4 +24,14 @@ const auth = async(req, res, next) => {
     
 }
 
-module.exports = auth;
+const authorize = (roles) => {
+    return (req, res, next) => {
+        if (!req.user || !roles.includes(req.user._doc.role)) {
+            return res.status(403).json({ message: 'Unauthorized' });
+        }
+        console.log("You are authorized to access this page");
+        next();
+    }
+}
+ 
+module.exports = {auth, authorize};

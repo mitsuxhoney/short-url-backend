@@ -3,7 +3,7 @@ const express = require('express');
 const urlRouter = express.Router();
 
 const { handleGenerateUrl, handleRedirectToUrlById, handleDeleteUrlById } = require('../controllers/urlController');
-const auth = require('../middlewares/auth');
+const {auth, authorize} = require('../middlewares/auth');
 
 urlRouter.post('/', auth, handleGenerateUrl);
 

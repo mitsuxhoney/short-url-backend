@@ -7,6 +7,7 @@ const connect = require('./config/connection');
 const viewRouter = require('./routes/viewRouter');
 const userRouter = require('./routes/userRouter');
 const urlRouter = require('./routes/urlRouter');
+const adminRouter = require('./routes/adminRouter');
 
 const cookieParser = require('cookie-parser');
 
@@ -28,6 +29,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use('/api/v1/urls/', urlRouter);
 app.use('/api/v1/auth/', userRouter);
+app.use('/api/v1/admin/urls/', adminRouter);
 app.use('/', viewRouter);
 
 

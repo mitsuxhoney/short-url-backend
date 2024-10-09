@@ -38,23 +38,29 @@ const handleGenerateUrl = async(req, res) => {
 
 const handleRedirectToUrlById = async(req, res) => {
 
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
     
-    const url = await Url.findOne({short_id: id, createdBy: req.user._doc._id});
+        const url = await Url.findOne({short_id: id, createdBy: req.user._doc._id});
 
-    if(!url) {
-        return res.json(404).json({
-            message: 'URL not found.'
+        if(!url) {
+            return res.json(404).json({
+                message: 'URL not found.'
+            });
+        }
+
+        url.analytics.push({
+            timestamp: new Date(),
         });
+
+        await url.save();
+
+        res.redirect(url.redirect_url);
+
+    } catch (error) {
+        console.log("error", error);
+        res.redirect('/');
     }
-
-    url.analytics.push({
-        timestamp: new Date(),
-    });
-
-    await url.save();
-
-    res.redirect(url.redirect_url);
     
 };
 
@@ -67,8 +73,7 @@ const handleDeleteUrlById = async(req, res) => {
 
     res.redirect('/');
 
-    
- 
+
 };
 
 module.exports = {handleGenerateUrl, handleRedirectToUrlById, handleDeleteUrlById};

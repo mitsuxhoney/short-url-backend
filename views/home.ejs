@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', system-ui;
         }
         body{
             overflow-x: hidden;
@@ -23,7 +23,7 @@
             margin: 10px 20px;
         }
         button{
-            padding: 2px 10px;
+            padding: 3px 15px;
             cursor: pointer;
             font-size: 15px;
             border: none;
@@ -47,12 +47,16 @@
         <h1>Short URL Generator</h1>
         <div style="display: flex; justify-content: space-between; gap: 20px;">
             <% if (!locals.token) { %>
-                <button> 
-                    <a href="/auth/login">Login</a>
-                </button>
-                <button> 
-                    <a href="/auth/signup">Signup</a>
-                </button>
+                <div>
+                    <button> 
+                        <a href="/auth/login">Login</a>
+                    </button>
+                </div>
+                <div>
+                    <button> 
+                        <a href="/auth/signup">Signup</a>
+                    </button>
+                </div>
             <% } %>
         </div>
     </header>

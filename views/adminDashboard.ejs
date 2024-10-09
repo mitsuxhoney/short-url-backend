@@ -24,8 +24,8 @@
         }
         button{
             background-color: #ffffff;
-            padding: 2px 10px;
             cursor: pointer;
+            padding: 2px 10px;
         }
         .logout{
             background-color: #ffffff;
@@ -61,25 +61,16 @@
 <body>
     <header>
         <h1>Short URL Generator</h1>
-        <div style="display: flex; gap:25px;">
-            <% if (locals.role === "admin") { %>
+        <div style="display:flex; gap: 25px;">
+            <% if (locals.username) { %>
                 <div>
-                    <button style="padding:2px 10px; border: none; border-radius: 10px; background-color: #610761;">
-                        <a style="color: white;" href="/admin/dashboard">Go to Admin Panel</a>
-                    </button>
+                    <p><%= username %></p>
                 </div>
             <% } %>
-            <div style="display:flex; gap: 25px;">
-                <% if (locals.username) { %>
-                    <div>
-                        <p><%= username %></p>
-                    </div>
-                <% } %>
-                <div>
-                    <form action="/api/v1/auth/logout" method="POST">
-                        <button id="logout" class="logout">Logout</button>
-                    </form>
-                </div>
+            <div>
+                <form action="/api/v1/auth/logout" method="POST">
+                    <button id="logout" class="logout">Logout</button>
+                </form>
             </div>
         </div>
     </header>
@@ -97,6 +88,7 @@
             <table>
                 <tr>
                     <th style="padding: 30px">S.No</th>
+                    <th style="padding: 30px">username</th>
                     <th style="padding: 30px">Short URL's</th>
                     <th style="padding: 30px">Redirection URL's</th>
                     <th style="padding: 30px">Total Clicks</th>
@@ -105,11 +97,12 @@
                     <% urls.forEach((url, index) => { %>
                         <tr>
                             <td style="padding: 30px"><%= index + 1 %></td>
-                            <td style="padding: 30px">http://localhost:8000/api/v1/urls/<%= url.short_id %></td>
+                            <td style="padding: 30px"><%= url.createdBy.username %></td>
+                            <td style="padding: 30px">http://localhost:8000/api/v1/admin/urls/<%= url.short_id %></td>
                             <td style="padding: 30px"><%= url.redirect_url %></td>
                             <td style="padding: 30px"><%= url.analytics.length %></td>
                             <td style="padding: 30px">
-                                <form action="/api/v1/urls/<%=url.short_id%>" method="post">
+                                <form action="/api/v1/admin/urls/<%=url.short_id%>" method="POST">
                                     <button type="submit" style="border: none;">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
                                             <path d="M19.5 5.5L18.8803 15.5251C18.7219 18.0864 18.6428 19.3671 18.0008 20.2879C17.6833 20.7431 17.2747 21.1273 16.8007 21.416C15.8421 22 14.559 22 11.9927 22C9.42312 22 8.1383 22 7.17905 21.4149C6.7048 21.1257 6.296 20.7408 5.97868 20.2848C5.33688 19.3626 5.25945 18.0801 5.10461 15.5152L4.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
