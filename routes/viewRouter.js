@@ -21,7 +21,7 @@ viewRouter.get('/admin/dashboard', auth, authorize(["admin"]), async(req, res) =
     }
     catch(error){
         console.error(error);
-        res.status(500).json({message: 'Server Error'});
+        return res.render('home');
     }
 })
 
