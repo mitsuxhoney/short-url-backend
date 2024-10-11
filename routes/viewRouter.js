@@ -26,15 +26,22 @@ viewRouter.get('/admin/dashboard', auth, authorize(["admin"]), async(req, res) =
 })
 
 viewRouter.get('/dashboard', auth, authorize(["user", "admin"]), async(req, res) => {
-    const urls = await Url.find({createdBy: req.user._id});
+
+    try {
+        const urls = await Url.find({createdBy: req.user._id});
     
-        res.render('dashboard', {
+        return res.render('dashboard', {
             urls: urls,
             profileImage: req.user.profileUrl,
             username: req.user.username,
             role: req.user.role    
         });
-        return;
+
+    } catch (error) {
+        console.log(error)
+        return res.render('home');
+    }
+    
 })
 
 viewRouter.get('/auth/login', auth, (req, res) => {
