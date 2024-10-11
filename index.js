@@ -29,6 +29,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use('/api/v1/urls/', urlRouter);
 app.use('/api/v1/auth/', userRouter);
+app.use('/api/v1/uploads/', userRouter);
 app.use('/api/v1/admin/urls/', adminRouter);
 app.use('/', viewRouter);
 

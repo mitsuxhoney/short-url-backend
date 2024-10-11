@@ -4,19 +4,19 @@ const {auth, authorize} = require('../middlewares/auth');
 const Url = require('../models/url');
 
 viewRouter.get('/', auth, async(req, res) => {
-    if(req.user) {
-       return res.redirect('/dashboard'); 
+    if(req.user){
+        return res.redirect('/dashboard');
     }
     return res.render('home');
-
 });
 
 viewRouter.get('/admin/dashboard', auth, authorize(["admin"]), async(req, res) => {
     try{
-        const urls = await Url.find().populate('createdBy', 'username email');
+        const urls = await Url.find().populate('createdBy', 'username profileUrl');
+        console.log(urls);
         res.render('adminDashboard', {
             urls: urls,
-            username: req.user._doc.username
+            username: req.user.username
         });
     }
     catch(error){
@@ -26,11 +26,13 @@ viewRouter.get('/admin/dashboard', auth, authorize(["admin"]), async(req, res) =
 })
 
 viewRouter.get('/dashboard', auth, authorize(["user", "admin"]), async(req, res) => {
-    const urls = await Url.find({createdBy: req.user._doc._id});
+    const urls = await Url.find({createdBy: req.user._id});
+    
         res.render('dashboard', {
             urls: urls,
-            username: req.user._doc.username,
-            role: req.user._doc.role    
+            profileImage: req.user.profileUrl,
+            username: req.user.username,
+            role: req.user.role    
         });
         return;
 })

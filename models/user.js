@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
+    },
+    profileUrl: {
+        type: String,
+        default: ''
     }
 }, {
     timestamps: true
